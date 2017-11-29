@@ -14,46 +14,88 @@ var userAlreadyGuessed = [];
 // Generate computer letter
 var computerGuess = letters[Math.floor(Math.random() * letters.length)];
 
-// var to add point to win
-function userWin() {
+// function to update win points
+function userWinUpdate() {
 	document.getElementById('win').innerHTML= "Wins :" + winCounter;
 };
 
-// var to add loss to loss
+// function to update loss
 function userLossUpdate() {
 	document.getElementById('loss').innerHTML = "Loss :" + lossCounter;
 };
 
-// var function to add user guessed to the userAlreadyGuessed array
+// function to update the user guessed already array
 function userAlreadyGuessedUpdate(){
 	document.getElementById('wrongGuess').innerHTML = "Wrong Guesses :" + userAlreadyGuessed.join(', ');
 };
 
-userWin();
-userLoss();
+// fucntion to update the remaining guesses
+function remainingGuessUpdate(){
+	document.getElementById('remainingGuesses').innerHTML = "Remaining Guesses: " + remainingGuess;
+};
+
+// Function to generate letter in the reset
+function letterGenerator(){
+	letters[Math.floor(Math.random() * letters.length)];
+};
 
 
-// function to reset the scores to the begining
+userWinUpdate();
+userLossUpdate();
+remainingGuessUpdate();
+userAlreadyGuessedUpdate();
 
-// Key event listener
+// function to reset game
+function gameReset(){
+	 remainingGuess = 10;
+	 userAlreadyGuessed = [];
+
+	 computerGuess = letters[Math.floor(Math.random() * letters.length)];
+};
+
+
+// Key event lisener functiton
 document.onkeyup = function(event){
 
-	remainingGuess--;
+	// Key listener for user Guess
 	var userGuess = event.key.toLowerCase();
 	
 
-	if (letters.indexOf(userGuess) === -1) {
+	// Check if userGuess is a letter
+	if (letters.indexOf(userGuess) <= -1) {
 		alert('Please choose a letter!');
 
-	} else if (userGuess.indexOf(userAlreadyGuessed)){
-		alert('Pick a differnt letter!');
+	  // userGuess is a letter and pushes the userGuess to an userAlreadyGuessed
+	} else if (letters.indexOf(userGuess) >= 0) {
+		userAlreadyGuessed.push(userGuess);
+		userAlreadyGuessedUpdate();
+		remainingGuess--;
+		remainingGuessUpdate();
+
+	  // Checks if the letter has already been picked
+	} else if (userAlreadyGuessed.indexOf(userGuess)) {
+		alert('Pick a new letter...')
 	};
-// need to check if the userGuess is a letter if it is then send to the userAlreadyGuessed if not then needs to send to an null
+
+
+
+	// When you guess the right answer then add to winCounter and reset game
+	if (userGuess === computerGuess){
+		alert('You Won!')
+		winCounter++;
+		userWinUpdate();
+		gameReset();
+
+	};
+	// When guesses equal 0 then reset game and add to the lossCounter
+	if (remainingGuess == 0){
+		alert('You lost buddy... Try again...')
+		lossCounter++;
+		userLossUpdate();
+		remainingGuessUpdate();
+		gameReset();
+	};
 };
-userAlreadyGuessedUpdate();
-
-
-
 
 
 
