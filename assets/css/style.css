@@ -1,0 +1,9 @@
+body {
+	background-color: blue;
+}
+
+.bigRow{
+	background-color: white;
+	font-weight: bold;
+	text-align: center;
+}

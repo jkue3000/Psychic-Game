@@ -73,11 +73,9 @@ document.onkeyup = function(event){
 		remainingGuessUpdate();
 
 	  // Checks if the letter has already been picked
-	} else if (userAlreadyGuessed.indexOf(userGuess)) {
-		alert('Pick a new letter...')
+	} else if (userAlreadyGuessed.indexOf() == userGuess) {
+		alert('Pick a new letter...');
 	};
-
-
 
 	// When you guess the right answer then add to winCounter and reset game
 	if (userGuess === computerGuess){
