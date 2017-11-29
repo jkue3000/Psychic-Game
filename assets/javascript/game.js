@@ -5,23 +5,55 @@ var letters = ['a', 'b', 'c', 'd', 'e',
 			   'p', 'q', 'r', 's', 't',
 			   'u', 'v', 'w', 'x', 'y', 
 			   'z'];
-
-// Blank array to log the wrong guesses to then add to the inner.HTML
-var wrongUserGuess = []
+//Score var
+var lossCounter = 0;
+var winCounter = 0;
+var remainingGuess = 10;
+var userAlreadyGuessed = [];
 
 // Generate computer letter
-document.onkeyup = function(event) {
-	
-	// read the user guess input 
-	var userGuess = event.key;
-	
-	// sends the user guess to the wrong guess HTML
-	document.getElementById('wrongGuess').innerHTML = userGuess;
+var computerGuess = letters[Math.floor(Math.random() * letters.length)];
+
+// var to add point to win
+function userWin() {
+	document.getElementById('win').innerHTML= "Wins :" + winCounter;
 };
 
+// var to add loss to loss
+function userLossUpdate() {
+	document.getElementById('loss').innerHTML = "Loss :" + lossCounter;
+};
 
-// Read User input then log to the right or wrong array
+// var function to add user guessed to the userAlreadyGuessed array
+function userAlreadyGuessedUpdate(){
+	document.getElementById('wrongGuess').innerHTML = "Wrong Guesses :" + userAlreadyGuessed.join(', ');
+};
 
-// If user guess equals to computer random generation then +1 to the user win score 
+userWin();
+userLoss();
 
-// If wrong then -1 remaining try & then +1 the wrong user guess to the wrong guess array
+
+// function to reset the scores to the begining
+
+// Key event listener
+document.onkeyup = function(event){
+
+	remainingGuess--;
+	var userGuess = event.key.toLowerCase();
+	
+
+	if (letters.indexOf(userGuess) === -1) {
+		alert('Please choose a letter!');
+
+	} else if (userGuess.indexOf(userAlreadyGuessed)){
+		alert('Pick a differnt letter!');
+	};
+// need to check if the userGuess is a letter if it is then send to the userAlreadyGuessed if not then needs to send to an null
+};
+userAlreadyGuessedUpdate();
+
+
+
+
+
+
